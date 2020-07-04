@@ -1,0 +1,22 @@
+CREATE PROCEDURE freeSeats()
+BEGIN
+    SELECT
+        flights.flight_id,
+        (planes.number_of_seats - IFNULL(p.taken_seats, 0)) free_seats
+    FROM
+        flights
+        INNER JOIN planes ON 1=1
+            AND flights.plane_id = planes.plane_id
+        LEFT JOIN (
+                    SELECT
+                        flight_id,
+                        COUNT(seat_no) taken_seats
+                    FROM
+                        purchases
+                    GROUP BY
+                        flight_id
+                 ) p
+             ON flihgts.flight_id = p.flight_id
+    ORDER BY
+        flights.flight_id;
+END
