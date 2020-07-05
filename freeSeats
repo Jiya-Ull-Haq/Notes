@@ -16,7 +16,7 @@ BEGIN
                     GROUP BY
                         flight_id
                  ) p
-             ON flihgts.flight_id = p.flight_id
+             ON flights.flight_id = p.flight_id
     ORDER BY
         flights.flight_id;
 END
